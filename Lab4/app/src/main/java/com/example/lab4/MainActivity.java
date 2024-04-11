@@ -2,6 +2,7 @@ package com.example.lab4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
@@ -64,16 +65,22 @@ public class MainActivity extends AppCompatActivity {
         // Выполните действия для отображения данных в соответствующих элементах пользовательского интерфейса
         // Например, установите значения в TextView или RecyclerView Adapter
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
         // Создание и настройка адаптера
-        PersonAdapter adapter = new PersonAdapter(persons);
+        PersonAdapter adapter = new PersonAdapter(this, persons); // Исправленная строка
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Дополнительные настройки RecyclerView, если необходимо
-        // recyclerView.addItemDecoration(...)
-        // recyclerView.setItemAnimator(...)
-
+        adapter.setOnItemClickListener(new PersonAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Person person) {
+                Intent intent = new Intent(MainActivity.this, PersonDetailsActivity.class);
+                intent.putExtra(PersonDetailsActivity.EXTRA_PERSON_NAME, person.getName());
+                intent.putExtra(PersonDetailsActivity.EXTRA_PERSON_PHONE, person.getPhoneNumber());
+                intent.putExtra(PersonDetailsActivity.EXTRA_PERSON_EMAIL, person.getEmail());
+                intent.putExtra(PersonDetailsActivity.EXTRA_PERSON_ADDRESS, person.getAddress());
+                startActivity(intent);
+            }
+        });
         // Обновление адаптера, если данные изменяются
         adapter.notifyDataSetChanged();
     }

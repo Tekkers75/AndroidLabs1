@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lab4</string>
+    <string name="label_phone_number">Номер: %s</string>
+    <string name="label_email">Email: %s</string>
+    <string name="label_address">Адрес: %s</string>
+
+
+</resources>

@@ -20,6 +20,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SubCategoryActivity" />
+
         <service android:name=".MyWearableListenerService"
             android:exported="true">
             <intent-filter>
